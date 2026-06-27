@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard &middot; Security Vulnerability Lab</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="dash-body">
+    <header class="app-header">
+        <div class="app-header__title">Security Vulnerability Lab</div>
+        <div class="app-header__logos">
+            <img src="/static/images/PUCIT_Logo.png" alt="PUCIT">
+            <img src="/static/images/excaliat-logo.png" alt="Excaliat">
+            <img src="/static/images/blue-logo-scl2.png" alt="FCCU">
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero__left">
+            <h1 class="hero__title">Security Vulnerability Lab</h1>
+            <p class="hero__subtitle">
+                Hands-on OWASP Top 10 exploitation &amp; defense
+            </p>
+        </div>
+        <div class="hero__right">
+            <span class="hero__user">Logged in as {{username}}</span>
+            <a class="btn-logout" href="/logout">Logout</a>
+        </div>
+    </section>
+
+    <main class="dash-content">
+        <article class="mission-card">
+            <h2 class="section-title">Your Mission</h2>
+            <p>
+                This application is intentionally insecure. Your goal is to
+                identify, exploit, and then understand how to remediate each of
+                the deliberately introduced vulnerabilities below. Read the
+                source, attack the running app, and analyze the root cause of
+                every flaw.
+            </p>
+        </article>
+
+        <h3 class="subsection-header">Vulnerabilities to Discover</h3>
+        <div class="vuln-grid">
+            <div class="vuln-card">
+                <span class="tag tag--sqli">SQLi</span>
+                <h4 class="card-title">SQL Injection</h4>
+                <p>Login and signup build SQL via string concatenation, allowing
+                   authentication bypass with crafted input.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--xss">XSS</span>
+                <h4 class="card-title">Stored XSS</h4>
+                <p>A username is rendered on the dashboard without escaping,
+                   persisting injected scripts for every viewer.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--xss">XSS</span>
+                <h4 class="card-title">Reflected XSS</h4>
+                <p>The search endpoint reflects the query parameter into the
+                   response without escaping.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--session">Session</span>
+                <h4 class="card-title">Session Hijacking</h4>
+                <p>A weak, hardcoded session secret makes session cookies
+                   forgeable and reusable.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--crypto">Crypto</span>
+                <h4 class="card-title">Weak Password Storage</h4>
+                <p>Passwords are hashed with unsalted MD5, reversible via
+                   rainbow tables.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--exposed">Exposed</span>
+                <h4 class="card-title">Exposed Database</h4>
+                <p>The database file is downloadable over HTTP with no
+                   authentication required.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--brute">Brute</span>
+                <h4 class="card-title">No Rate Limiting</h4>
+                <p>No throttling on any endpoint enables unlimited automated
+                   credential guessing.</p>
+            </div>
+            <div class="vuln-card">
+                <span class="tag tag--csrf">CSRF</span>
+                <h4 class="card-title">Cross-Site Request Forgery</h4>
+                <p>Forms carry no CSRF tokens, so state-changing requests can be
+                   forged from other origins.</p>
+            </div>
+        </div>
+
+        <h3 class="subsection-header">How to Work the Lab</h3>
+        <div class="steps-grid">
+            <div class="step-card">
+                <span class="step-badge">1</span>
+                <h4 class="card-title">Find</h4>
+                <p>Read the source and probe the app to locate each vulnerability.</p>
+            </div>
+            <div class="step-card">
+                <span class="step-badge">2</span>
+                <h4 class="card-title">Exploit</h4>
+                <p>Craft real attack payloads to demonstrate each flaw.</p>
+            </div>
+            <div class="step-card">
+                <span class="step-badge">3</span>
+                <h4 class="card-title">Mitigate</h4>
+                <p>Understand the secure fix that would close each vulnerability.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

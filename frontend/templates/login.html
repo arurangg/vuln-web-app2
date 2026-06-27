@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login &middot; Security Vulnerability Lab</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="auth-body">
+    <header class="app-header">
+        <div class="app-header__title">Security Vulnerability Lab</div>
+        <div class="app-header__logos">
+            <img src="/static/images/PUCIT_Logo.png" alt="PUCIT">
+            <img src="/static/images/excaliat-logo.png" alt="Excaliat">
+            <img src="/static/images/blue-logo-scl2.png" alt="FCCU">
+        </div>
+    </header>
+
+    <main class="auth-split">
+        <section class="auth-panel auth-panel--brand">
+            <span class="auth-badge">Security Education Platform</span>
+            <h1 class="auth-brand__heading">Welcome Back</h1>
+            <p class="auth-brand__desc">
+                Sign in to access the hands-on security lab and continue
+                exploring real-world web vulnerabilities.
+            </p>
+            <ul class="auth-brand__list">
+                <li>8 deliberately introduced OWASP Top 10 vulnerabilities</li>
+                <li>Exploit, analyze, and remediate in a safe sandbox</li>
+                <li>Full source-code visibility for root-cause analysis</li>
+            </ul>
+            <span class="auth-circle auth-circle--1"></span>
+            <span class="auth-circle auth-circle--2"></span>
+            <span class="auth-circle auth-circle--3"></span>
+        </section>
+
+        <section class="auth-panel auth-panel--form">
+            <div class="auth-form">
+                <h2 class="form-title">Login</h2>
+                <p class="form-subtitle">Enter your credentials to continue</p>
+
+                <form id="login-form">
+                    <label class="field-label" for="username">Username</label>
+                    <input class="field-input" type="text" id="username"
+                           name="username" autocomplete="username" required>
+
+                    <label class="field-label" for="password">Password</label>
+                    <input class="field-input" type="password" id="password"
+                           name="password" autocomplete="current-password" required>
+
+                    <div id="error-message" class="error-message" hidden></div>
+
+                    <button class="btn-primary" type="submit">Login</button>
+                </form>
+
+                <p class="auth-switch">
+                    Don't have an account? <a href="/signup">Sign up</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const errorBox = document.getElementById('error-message');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            errorBox.hidden = true;
+            errorBox.textContent = '';
+
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    errorBox.textContent = data.error || 'Login failed';
+                    errorBox.hidden = false;
+                }
+            } catch (err) {
+                errorBox.textContent = 'A network error occurred. Please try again.';
+                errorBox.hidden = false;
+            }
+        });
+    </script>
+</body>
+</html>
